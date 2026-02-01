@@ -64,7 +64,7 @@ export default function Footer() {
         {/* Products */}
         <FooterColumn title="Products">
           <FooterLink href="/products">All Products</FooterLink>
-          <FooterLink href="/categories">Categories</FooterLink>
+          {/* <FooterLink href="/categories">Categories</FooterLink> */}
           <FooterLink href="/best-sellers">Best Sellers</FooterLink>
           <FooterLink href="/new-arrivals">New Arrivals</FooterLink>
         </FooterColumn>
