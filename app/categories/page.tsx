@@ -6,7 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { FiLoader, FiAlertCircle } from "react-icons/fi";
-import { getCategories, getProducts } from "@/lib/firestore";
 
 interface Product {
   id: string;
@@ -35,10 +34,8 @@ const CategoryPage = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const cats = await getCategories();
-        const prods = await getProducts();
-        setCategories(cats);
-        setProducts(prods);
+        setCategories([]);
+        setProducts([]);
       } catch (error) {
         console.error(error);
       } finally {
