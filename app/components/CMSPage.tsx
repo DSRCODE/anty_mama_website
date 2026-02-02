@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getCMSContentBySlug } from "@/lib/firestore";
 import { FiLoader, FiAlertCircle } from "react-icons/fi";
 
 interface CMSContent {
@@ -22,7 +21,6 @@ export default function CMSPage({ slug, title }: CMSPageProps) {
 
   useEffect(() => {
     const fetchContent = async () => {
-      const data = await getCMSContentBySlug(slug);
       setContent(null);
       setLoading(false);
     };
