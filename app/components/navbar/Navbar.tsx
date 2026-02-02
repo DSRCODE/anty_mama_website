@@ -35,7 +35,7 @@ export default function Navbar() {
           <Image
             src="/anty_logo.png"
             alt="Logo"
-            width={40}
+            width={60}
             height={40}
             priority
           />

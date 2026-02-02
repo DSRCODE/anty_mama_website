@@ -22,7 +22,7 @@ const HERO_SLIDES: HeroSlide[] = [
     title: "Cook Like a Pro",
     subtitle: "High-quality products for every chef",
     image:
-      "https://images.unsplash.com/photo-1598511726159-5dcf0eaaef6f?auto=format&fit=crop&w=1470&q=80",
+      "https://images.unsplash.com/photo-1504128668912-f893e6606db6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "Make Every Meal Special",

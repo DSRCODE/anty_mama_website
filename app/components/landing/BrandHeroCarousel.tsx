@@ -19,13 +19,13 @@ const HERO_SLIDES: Record<"ANTY_MAMA" | "NURSE_CAM", HeroSlide[]> = {
       title: "Welcome to Anty Mama",
       subtitle: "Premium cookware for your kitchen",
       image:
-        "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1515419417963-c06be58556b1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       title: "Cook Like a Pro",
       subtitle: "High-quality products for every chef",
       image:
-        "https://images.unsplash.com/photo-1598511726159-5dcf0eaaef6f?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1504128668912-f893e6606db6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ],
   NURSE_CAM: [
@@ -33,13 +33,13 @@ const HERO_SLIDES: Record<"ANTY_MAMA" | "NURSE_CAM", HeroSlide[]> = {
       title: "Monitor Patients Easily",
       subtitle: "Crystal-clear visuals, reliable performance",
       image:
-        "https://images.unsplash.com/photo-1588776814546-0e0a5dc26812?auto=format&fit=crop&w=800&q=80",
+        "https://plus.unsplash.com/premium_photo-1667516613991-ce24887628cb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       title: "Peace of Mind Anytime",
       subtitle: "Keep your hospital running smoothly",
       image:
-        "https://images.unsplash.com/photo-1581092580493-43d3bb2c25c5?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1682663947090-b35e4f2c23cc?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ],
 };
@@ -64,7 +64,7 @@ export default function BrandHeroCarousel() {
     <section className="py-0 bg-gray-50">
       <div className="max-w-full mx-auto">
         {/* Fixed height wrapper prevents layout shift */}
-        <div className="h-[50vh] md:h-[60vh]  shadow-md overflow-hidden bg-white">
+        <div className="h-[50vh] md:h-[80vh]  shadow-md overflow-hidden bg-white">
           <AnimatePresence mode="wait">
             {slides.map((slide, i) =>
               i === index ? (
@@ -85,7 +85,7 @@ export default function BrandHeroCarousel() {
                       className="object-cover  md:object-cover"
                       priority={i === 0} // Preload first slide
                     />
-                    <div className="absolute inset-0 bg-black/25 flex flex-col justify-center items-center text-center px-6">
+                    {/* <div className="absolute inset-0 bg-black/25 flex flex-col justify-center items-center text-center px-6">
                       <h2 className="text-2xl md:text-4xl font-bold text-white mb-2">
                         {slide.title}
                       </h2>
@@ -94,7 +94,7 @@ export default function BrandHeroCarousel() {
                           {slide.subtitle}
                         </p>
                       )}
-                    </div>
+                    </div> */}
                   </div>
                 </motion.div>
               ) : null

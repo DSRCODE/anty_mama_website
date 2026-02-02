@@ -57,8 +57,8 @@ export default function Footer() {
         <FooterColumn title="Company">
           <FooterLink href="/about">About Us</FooterLink>
           <FooterLink href="/contact">Contact</FooterLink>
-          <FooterLink href="/careers">Careers</FooterLink>
-          <FooterLink href="/blog">Blog</FooterLink>
+          {/* <FooterLink href="/careers">Careers</FooterLink> */}
+          {/* <FooterLink href="/blog">Blog</FooterLink> */}
         </FooterColumn>
 
         {/* Products */}
