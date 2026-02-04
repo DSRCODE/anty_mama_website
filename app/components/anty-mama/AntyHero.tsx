@@ -14,7 +14,7 @@ export default function AntyHero() {
   return (
     <main>
       <BrandHeroCarousel />
-      <CategorySlider />
+      {/* <CategorySlider /> */}
       <ProductSection />
       <WhyChooseUsSection />
       <HowItWorksSection />

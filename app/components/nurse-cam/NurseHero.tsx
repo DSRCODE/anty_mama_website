@@ -14,7 +14,7 @@ export default function NurseHero() {
   return (
     <main>
       <BrandHeroCarousel />
-      <CategorySlider />
+      {/* <CategorySlider /> */}
       <ProductSection />
       <WhyChooseUsSection />
       <HowItWorksSection />
