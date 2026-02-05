@@ -108,7 +108,6 @@ export default function ProductSection() {
                   <Image
                     src={getImageUrl(product.images?.[0]) ?? "/default.jfif"}
                     alt={product.name}
-                    unoptimized
                     fill
                     className="object-cover group-hover:scale-105 transition-transform"
                   />

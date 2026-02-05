@@ -82,7 +82,6 @@ export default function ProductDetailPage() {
               src={getImageUrl(product.images?.[0]) ?? "/placeholder.png"}
               alt={product.name}
               fill
-              unoptimized
               className="object-cover"
               priority
             />

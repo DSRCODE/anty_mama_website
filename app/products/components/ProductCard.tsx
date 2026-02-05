@@ -26,7 +26,6 @@ export function ProductCard({ product }: any) {
         <Image
           src={image}
           alt={product.name}
-          unoptimized
           fill
           className="object-cover"
         />
