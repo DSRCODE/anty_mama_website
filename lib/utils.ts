@@ -12,12 +12,12 @@ export const getImageUrl = (path: any) => {
 
   if (!pathStr) return "";
 
-  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_UR?.replace(/\/$/, "") || "";
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") || "";
 
   const fullUrl = pathStr.startsWith("http")
     ? pathStr
     : `${baseUrl}/${pathStr.replace(/^\//, "")}`;
 
-  // console.log("Image URL:", fullUrl);
+  console.log("Image URL:", fullUrl);
   return fullUrl;
 };

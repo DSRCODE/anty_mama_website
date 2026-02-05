@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "api.antymama.com",
+        port: "",
         pathname: "/uploads/**",
       },
     ],

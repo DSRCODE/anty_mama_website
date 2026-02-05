@@ -8,6 +8,7 @@ import { useBrand } from "@/app/providers/BrandProvider";
 import { brandTheme } from "@/lib/brandTheme";
 import { useCart } from "@/app/providers/CartProvider";
 import { useGetProductByIdQuery } from "@/lib/api/productApi";
+import { getImageUrl } from "@/lib/utils";
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -78,9 +79,10 @@ export default function ProductDetailPage() {
             style={{ border: `1px solid ${theme.border}` }}
           >
             <Image
-              src={product.images?.[0] ?? "/placeholder.png"}
+              src={getImageUrl(product.images?.[0]) ?? "/placeholder.png"}
               alt={product.name}
               fill
+              unoptimized
               className="object-cover"
               priority
             />

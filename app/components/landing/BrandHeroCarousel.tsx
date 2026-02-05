@@ -59,6 +59,7 @@ export default function BrandHeroCarousel() {
                         sizes="100vw"
                         priority={i === 0}
                         className="object-cover"
+                        unoptimized
                       />
                     </div>
                   </div>
