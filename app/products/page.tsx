@@ -1,46 +1,62 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { PRODUCT_DATA } from "./productData";
+import { useState } from "react";
 import { useBrand } from "@/app/providers/BrandProvider";
 import { brandTheme } from "@/lib/brandTheme";
 import { SearchBar } from "./components/SearchBar";
 import { ProductCard } from "./components/ProductCard";
-import { ProductFilters } from "./components/ProductFilters";
-import { MobileFilters } from "./components/MobileFilters";
 import { Pagination } from "./components/Pagination";
+import { useGetProductsQuery } from "@/lib/api/productApi";
+import { EmptyProducts } from "../components/EmptyProducts";
 
 const PER_PAGE = 6;
+
+const BRAND_MAP: Record<string, "anty-mama" | "nurse-cam"> = {
+  ANTY_MAMA: "anty-mama",
+  NURSE_CAM: "nurse-cam",
+};
 
 export default function ProductsPage() {
   const { brand } = useBrand();
   const theme = brandTheme[brand];
-  const products = PRODUCT_DATA[brand];
-
-  const categories = useMemo(
-    () => [...new Set(products.map((p) => p.category))],
-    [products]
-  );
+  const apiBrand = BRAND_MAP[brand];
 
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState<string | null>(null);
   const [page, setPage] = useState(1);
-  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const filtered = useMemo(() => {
-    return products.filter((p) => {
-      const matchSearch = p.name.toLowerCase().includes(search.toLowerCase());
-      const matchCategory = category ? p.category === category : true;
-      return matchSearch && matchCategory;
-    });
-  }, [products, search, category]);
+  const { data, isLoading, isError } = useGetProductsQuery({
+    brand: apiBrand,
+    search,
+    page,
+    limit: PER_PAGE,
+    isActive: true,
+    sortBy: "createdAt",
+    order: "desc",
+  });
 
-  const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+  const products = data?.products ?? [];
+  const pagination = data?.pagination;
+
+  if (isLoading) {
+    return (
+      <div className="h-[60vh] flex items-center justify-center">
+        Loading products…
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="h-[60vh] flex items-center justify-center">
+        Failed to load products
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 py-12">
-        {/* Page Header */}
+        {/* Header */}
         <div className="mb-8">
           <h1
             className="text-2xl md:text-3xl font-semibold"
@@ -54,50 +70,35 @@ export default function ProductsPage() {
           </p>
         </div>
 
-        <SearchBar value={search} onChange={setSearch} />
-
-        {/* Mobile filter button */}
-        <button
-          onClick={() => setMobileOpen(true)}
-          className="lg:hidden mt-4 w-full py-3 rounded-xl text-sm font-medium"
-          style={{
-            border: `1px solid ${theme.border}`,
-            color: theme.text,
+        {/* Search */}
+        <SearchBar
+          value={search}
+          onChange={(v) => {
+            setSearch(v);
+            setPage(1);
           }}
-        >
-          Filter Products
-        </button>
+        />
 
-        <div className="grid lg:grid-cols-[240px_1fr] gap-8 mt-8">
-          <aside className="hidden lg:block">
-            <ProductFilters
-              categories={categories}
-              active={category}
-              onChange={setCategory}
-            />
-          </aside>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
-            {paginated.map((p) => (
-              <ProductCard key={p.id} product={p} />
+        {/* Products */}
+        {products.length === 0 ? (
+          <EmptyProducts search={search} />
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-8">
+            {products.map((p: any) => (
+              <ProductCard key={p._id} product={p} />
             ))}
           </div>
-        </div>
+        )}
 
-        <Pagination
-          page={page}
-          total={filtered.length / PER_PAGE}
-          onChange={setPage}
-        />
+        {/* Pagination */}
+        {pagination?.pages > 1 && (
+          <Pagination
+            page={pagination.page}
+            total={pagination.pages}
+            onChange={setPage}
+          />
+        )}
       </div>
-
-      <MobileFilters
-        open={mobileOpen}
-        onClose={() => setMobileOpen(false)}
-        categories={categories}
-        active={category}
-        onChange={setCategory}
-      />
     </div>
   );
 }

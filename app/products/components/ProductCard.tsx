@@ -1,16 +1,18 @@
 import Link from "next/link";
-import { AddToCartButton } from "./AddToCartButton";
 import Image from "next/image";
+import { AddToCartButton } from "./AddToCartButton";
 import { brandTheme } from "@/lib/brandTheme";
 import { useBrand } from "@/app/providers/BrandProvider";
 import { useCart } from "@/app/providers/CartProvider";
+import { getImageUrl } from "@/lib/utils";
 
 export function ProductCard({ product }: any) {
   const { addToCart, items } = useCart();
   const { brand } = useBrand();
   const theme = brandTheme[brand];
 
-  const alreadyAdded = items.some((i: any) => i.id === product.id);
+  const alreadyAdded = items.some((i: any) => i.id === product._id);
+  const image = getImageUrl(product.images?.[0]) || "/placeholder.png";
 
   return (
     <div
@@ -18,21 +20,16 @@ export function ProductCard({ product }: any) {
       style={{ border: `1px solid ${theme.border}` }}
     >
       <Link
-        href={`/products/${product.id}`}
+        href={`/products/${product._id}`}
         className="block relative aspect-[4/5] bg-gray-100"
       >
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          className="object-cover"
-        />
+        <Image src={image} alt={product.name} fill className="object-cover" />
       </Link>
 
       <div className="p-3 space-y-2">
-        <Link href={`/products/${product.id}`}>
+        <Link href={`/products/${product._id}`}>
           <h3
-            className="text-sm font-medium leading-snug line-clamp-2 hover:underline"
+            className="text-sm font-medium line-clamp-2 hover:underline"
             style={{ color: theme.text }}
           >
             {product.name}
@@ -40,7 +37,7 @@ export function ProductCard({ product }: any) {
         </Link>
 
         <p className="text-base font-semibold" style={{ color: theme.primary }}>
-          ₹{product.price}
+          {product.currency} {product.price}
         </p>
 
         <AddToCartButton
@@ -48,7 +45,7 @@ export function ProductCard({ product }: any) {
           textColor={theme.subtext}
           onAdd={() =>
             addToCart({
-              id: product.id,
+              id: product._id,
               name: product.name,
               price: product.price,
               brand,

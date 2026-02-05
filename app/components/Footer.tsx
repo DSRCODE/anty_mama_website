@@ -73,8 +73,8 @@ export default function Footer() {
         <FooterColumn title="Legal">
           <FooterLink href="/privacy-policy">Privacy Policy</FooterLink>
           <FooterLink href="/terms-conditions">Terms & Conditions</FooterLink>
-          <FooterLink href="/refund-policy">Refund Policy</FooterLink>
-          <FooterLink href="/shipping-policy">Shipping Policy</FooterLink>
+          {/* <FooterLink href="/refund-policy">Refund Policy</FooterLink> */}
+          {/* <FooterLink href="/shipping-policy">Shipping Policy</FooterLink> */}
         </FooterColumn>
       </div>
 

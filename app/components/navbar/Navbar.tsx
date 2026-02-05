@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FiMenu, FiX, FiShoppingCart } from "react-icons/fi";
+import { FiMenu, FiX, FiShoppingCart, FiUser } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
 import { useBrand } from "@/app/providers/BrandProvider";
 import { brandTheme } from "@/lib/brandTheme";
@@ -24,6 +24,9 @@ export default function Navbar() {
     };
   }, [open]);
 
+  const logo =
+    brand === "ANTY_MAMA" ? `/anty_mama_logo.png` : "/nurse_cam_logo.png";
+
   return (
     <header
       className="sticky top-0 z-50 bg-white border-b"
@@ -32,14 +35,8 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="/anty_logo.png"
-            alt="Logo"
-            width={60}
-            height={40}
-            priority
-          />
-          <span className="text-xl font-bold" style={{ color: theme.text }}>
+          <Image src={logo} alt="Logo" width={60} height={40} priority />
+          <span className="text-xl font-bold" style={{ color: theme.primary }}>
             {brand === "ANTY_MAMA" ? "Anty Mama" : "Nurse Cam"}{" "}
             <span
               className="text-sm font-medium"
@@ -56,10 +53,46 @@ export default function Navbar() {
         </div>
 
         {/* Right Section */}
+        {/* Right Section */}
         <div className="flex items-center gap-4 relative">
+          {/* Auth buttons (desktop) */}
+          <div className="hidden md:flex items-center gap-3">
+            <Link
+              href="/login"
+              className="px-4 py-2 text-sm font-medium rounded-lg transition"
+              style={{
+                color: theme.primary,
+                border: `1px solid ${theme.primary}`,
+              }}
+            >
+              Login
+            </Link>
+
+            <Link
+              href="/signup"
+              className="px-4 py-2 text-sm font-semibold rounded-lg transition hover:opacity-90"
+              style={{
+                backgroundColor: theme.primary,
+                color: theme.subtext,
+              }}
+            >
+              Sign Up
+            </Link>
+          </div>
+
           {/* Cart */}
-          <Link href="/cart" className="relative p-2" aria-label="Cart">
-            <FiShoppingCart size={22} style={{ color: theme.primary }} />
+          <Link href="/cart" aria-label="Cart" className="relative group">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="p-2.5 rounded-xl transition"
+              style={{
+                backgroundColor: `${theme.primary}12`, // subtle brand bg
+              }}
+            >
+              <FiShoppingCart size={22} style={{ color: theme.primary }} />
+            </motion.div>
+
             <CartBadge count={cartCount} themeColor={theme.primary} />
           </Link>
 
@@ -114,8 +147,37 @@ export default function Navbar() {
             </div>
 
             {/* Links */}
-            <div className="flex-1 px-6 py-10">
+            {/* Links */}
+            <div className="flex-1 px-6 py-10 flex flex-col justify-between">
               <NavLinks mobile />
+
+              {/* Auth buttons (mobile) */}
+              <div className="mt-10 space-y-4">
+                <Link
+                  href="/login"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-medium border"
+                  style={{
+                    color: theme.primary,
+                    borderColor: theme.primary,
+                  }}
+                >
+                  <FiUser size={16} />
+                  Login
+                </Link>
+
+                <Link
+                  href="/signup"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-center w-full py-3 rounded-xl text-sm font-semibold transition hover:opacity-90"
+                  style={{
+                    backgroundColor: theme.primary,
+                    color: theme.subtext,
+                  }}
+                >
+                  Sign Up
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}

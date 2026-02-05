@@ -1,43 +1,39 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { FiLoader, FiAlertCircle } from "react-icons/fi";
-
-interface CMSContent {
-  id: string;
-  content: string;
-  slug: string;
-  updatedAt: Date | null;
-}
+import { useGetCMSPageQuery } from "@/lib/api/cmsApi";
 
 interface CMSPageProps {
   slug: string;
   title: string;
 }
 
+const PAGE_MAP: Record<string, string> = {
+  "privacy-policy": "privacyPolicy",
+  "terms-conditions": "termsConditions",
+  "refund-policy": "refundPolicy",
+  "shipping-policy": "shippingPolicy",
+  "about-us": "aboutUs",
+};
+
 export default function CMSPage({ slug, title }: CMSPageProps) {
-  const [content, setContent] = useState<CMSContent | null>(null);
-  const [loading, setLoading] = useState(true);
+  const pageKey = PAGE_MAP[slug];
 
-  useEffect(() => {
-    const fetchContent = async () => {
-      setContent(null);
-      setLoading(false);
-    };
-    fetchContent();
-  }, [slug]);
+  const { data, isLoading, isError } = useGetCMSPageQuery(pageKey, {
+    skip: !pageKey,
+  });
 
-  if (loading)
+  if (isLoading)
     return (
-      <div className="flex flex-col h-[80vh] items-center justify-center py-20 space-y-4">
+      <div className="flex flex-col h-[80vh] items-center justify-center space-y-4">
         <FiLoader className="animate-spin text-4xl text-amber-600" />
         <p className="text-lg text-gray-700">Loading content...</p>
       </div>
     );
 
-  if (!content)
+  if (isError || !data?.content)
     return (
-      <div className="flex flex-col h-[80vh] items-center justify-center py-20 space-y-4">
+      <div className="flex flex-col h-[80vh] items-center justify-center space-y-4">
         <FiAlertCircle className="text-4xl text-red-500" />
         <p className="text-lg text-gray-700">Content not found.</p>
       </div>
@@ -46,15 +42,17 @@ export default function CMSPage({ slug, title }: CMSPageProps) {
   return (
     <div className="max-w-4xl mx-auto px-6 py-16 bg-white">
       <h1 className="text-4xl font-bold text-gray-900 mb-6">{title}</h1>
+
       <div
-        className="prose prose-lg text-gray-700"
-        dangerouslySetInnerHTML={{ __html: content.content }}
+        className="prose prose-lg text-gray-700 max-w-none"
+        dangerouslySetInnerHTML={{ __html: data.content }}
       />
-      {/* {content.updatedAt && (
+
+      {data.updatedAt && (
         <p className="text-sm text-gray-500 mt-8">
-          Last updated: {content.updatedAt.toLocaleDateString()}
+          Last updated: {new Date(data.updatedAt).toLocaleDateString()}
         </p>
-      )} */}
+      )}
     </div>
   );
 }

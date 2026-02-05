@@ -11,14 +11,14 @@ export const brandTheme: Record<
   }
 > = {
   ANTY_MAMA: {
-    primary: "#592720", // Brown
+    primary: "#592720",
     text: "#2A3439",
-    muted: "#6B7280", // gray-500
-    border: "#E5E7EB", // gray-200
+    muted: "#6B7280",
+    border: "#E5E7EB",
     subtext: "white",
   },
   NURSE_CAM: {
-    primary: "#006D6F", // Medical green
+    primary: "#800080",
     text: "#2A3439",
     subtext: "white",
     muted: "#6B7280",

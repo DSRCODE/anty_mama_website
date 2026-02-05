@@ -6,6 +6,8 @@ import { BrandProvider } from "./providers/BrandProvider";
 import { CartProvider } from "./providers/CartProvider";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/Footer";
+import ReduxProvider from "./providers/ReduxProvider";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: {
@@ -14,11 +16,6 @@ export const metadata: Metadata = {
   },
   description:
     "Anty Mama LLC offers premium cookware and trusted nursing education products worldwide.",
-  openGraph: {
-    title: "Anty Mama LLC",
-    description: "Two brands. One trusted checkout.",
-    type: "website",
-  },
 };
 
 export default function RootLayout({
@@ -28,18 +25,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <AuthProvider>
-          <BrandProvider>
-            <CartProvider>
-              <body className="min-h-screen flex flex-col">
+      <body className="min-h-screen flex flex-col">
+        <ReduxProvider>
+          <AuthProvider>
+            <BrandProvider>
+              <CartProvider>
                 <Navbar />
+
                 <main className="flex-1">{children}</main>
+
                 <Footer />
-              </body>
-            </CartProvider>
-          </BrandProvider>
-        </AuthProvider>
+                <Toaster richColors position="top-right" />
+              </CartProvider>
+            </BrandProvider>
+          </AuthProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
